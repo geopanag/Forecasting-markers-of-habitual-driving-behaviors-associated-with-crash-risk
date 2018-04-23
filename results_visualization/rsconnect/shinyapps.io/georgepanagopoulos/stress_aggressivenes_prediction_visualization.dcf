@@ -1,0 +1,12 @@
+name: stress_aggressivenes_prediction_visualization
+title: stress_aggressivenes_prediction_visualization
+username:
+account: georgepanagopoulos
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 291160
+bundleId: 1255769
+url: https://georgepanagopoulos.shinyapps.io/stress_aggressivenes_prediction_visualization/
+when: 1520368797.85066
+asMultiple: FALSE
+asStatic: FALSE
