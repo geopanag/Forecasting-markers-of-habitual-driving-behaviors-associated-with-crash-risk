@@ -218,15 +218,16 @@ label = "distraction"
 xgb_distraction_names = xgb_feature_selection(temp_dat, label)
 linear_distraction_names = linear_feature_selection(temp_dat,label)
 
-dist_f = union(xgb_distraction_names,linear_distraction_names)
-agg_f = union(xgb_aggresiveness_names,linear_aggresiveness_names)
-length(intersect(agg_f,dist_f))/length(agg_f)
+
 
 temp_dat$label = aggressiveness
 label = "aggressiveness"
 xgb_aggresiveness_names = xgb_feature_selection(temp_dat,label)
 linear_aggresiveness_names = linear_feature_selection(temp_dat,label)
 
+dist_f = union(xgb_distraction_names,linear_distraction_names)
+agg_f = union(xgb_aggresiveness_names,linear_aggresiveness_names)
+length(intersect(agg_f,dist_f))/length(agg_f)
 
 print(xgb_distraction_names)
 print(linear_distraction_names)
@@ -234,10 +235,6 @@ print(xgb_aggresiveness_names)
 print(linear_aggresiveness_names)
 chosen = c("acceleration","steering",union(union(union(xgb_distraction_names,linear_distraction_names),xgb_aggresiveness_names),linear_aggresiveness_names))
 
-
-x1 = union(xgb_distraction_names,linear_distraction_names)
-x2 = union(xgb_aggresiveness_names,linear_aggresiveness_names)
-intersect(x1,x2)
 
 final = c(sum(grepl("perinasal",chosen)),sum(grepl("breath",chosen)),
                  sum(grepl("palm",chosen)),sum(grepl("heart",chosen)),sum(grepl("cov|cor",chosen)))

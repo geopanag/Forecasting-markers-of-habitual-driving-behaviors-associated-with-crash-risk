@@ -13,7 +13,7 @@ libs = c("signal","dplyr","xlsx","TTR")
 lapply(libs, require, character.only = TRUE)
 
 #---------- Set the folder from osf
-setwd("../Data/Raw")
+setwd("../Data/raw")
 
 ##--------- Substitute impossible physiological values with the mean
 clean <- function(rec,down,up){
@@ -27,7 +27,8 @@ clean <- function(rec,down,up){
 }
 
 
-##---------- Use validity index table from quality control to remove erroneous subjects or recordings
+##---------- Use validity index table from qualit
+y control to remove erroneous subjects or recordings
 quality_idx = read.csv("../Dataset-Table-Index.csv")
 idx = quality_idx[which(quality_idx$pp==1 & quality_idx$peda==1 & quality_idx$HR==1 & quality_idx$BR==1 & quality_idx$RES==1),c("Subject","Session")]
 
@@ -134,6 +135,8 @@ for(subject_folder in 1:length(dir(full.names=T))){
       peda = rep(NA,length(heart))
     }
     
+    
+    
     ##----------- Read vehicle data
     if(length(dir(d,pattern="*.res",full.names=T))>0){
       re = data.frame(sapply(
@@ -145,7 +148,7 @@ for(subject_folder in 1:length(dir(full.names=T))){
       
       res=matrix(nrow=0,ncol=4)
       # Resample to 1hz
-      for(i in 1:ceiling(max(re$Time))){
+      for(i in 1:ceiling(max(re$Time,na.rm=T))){
         res = rbind(res,sapply(re[re$Time>(i-1)&re$Time<i,2:5],mean,na.rm=T))
       }
       
@@ -174,7 +177,7 @@ for(subject_folder in 1:length(dir(full.names=T))){
     
     
     ##----------- Set the distraction indicator signals
-    extracted$distraction = 0
+    extracted$Distraction = 0
     
     ##----------- Read the start and end of distracted signal
     if(length(dir(d,pattern="*.stm",full.names=T))>0){
@@ -226,11 +229,12 @@ for(subject_folder in 1:length(dir(full.names=T))){
     
     extracted$Subject = subject
     sim1_data = rbind(sim1_data,as.matrix(extracted))
+   
   }
-  
+
 }
 
-names(sim1_data)
+
 sim1_data = data.frame(sim1_data)
 names(sim1_data)=c("Time","Speed","Acceleration", "Steering","Lane.Position","Breathing","Heart","Palm","Perinasal","Distraction","Drive","Subject")
 
@@ -239,13 +243,22 @@ sim1_data = sim1_data[complete.cases(sim1_data),]
 
 smoothing_window = 5
 
+#SMA(sim1_data$Heart,n=smoothing_window,na.rm=T)
+
+moving_average <- function(x,n){
+  new = x
+  for(i in 1:(length(x)-n+1)){
+    new[i] = mean(x[i:(i+n-1)],na.rm=T)
+  }
+  new
+}
 
 #------------------ Smooth all phisiological variables in every recording
-dat_smoothed = sim1_data%>%group_by(Subject,Drive) %>% mutate(
-  Heart = SMA(Heart,n=smoothing_window,na.rm=T),
-  Perinasal = SMA(Perinasal,n=smoothing_window,na.rm=T),
-  Breathing = SMA(Breathing,n=smoothing_window,na.rm=T),
-  Palm = SMA(Palm,n=smoothing_window,na.rm=T))
+dat_smoothed = sim1_data %>% group_by(Subject,Drive) %>% mutate(
+  Heart = moving_average(Heart,n=smoothing_window),#,na.rm=T),
+  Perinasal = moving_average(Perinasal,n=smoothing_window),#,na.rm=T),
+  Breathing = moving_average(Breathing,n=smoothing_window),#,na.rm=T),
+  Palm = moving_average(Palm,n=smoothing_window))#,na.rm=T))
 
 dat = dat_smoothed[complete.cases(dat_smoothed),]
 
