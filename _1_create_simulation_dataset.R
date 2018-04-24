@@ -27,8 +27,7 @@ clean <- function(rec,down,up){
 }
 
 
-##---------- Use validity index table from qualit
-y control to remove erroneous subjects or recordings
+##---------- Use validity index table from quality control to remove erroneous subjects or recordings
 quality_idx = read.csv("../Dataset-Table-Index.csv")
 idx = quality_idx[which(quality_idx$pp==1 & quality_idx$peda==1 & quality_idx$HR==1 & quality_idx$BR==1 & quality_idx$RES==1),c("Subject","Session")]
 
