@@ -43,7 +43,7 @@ for(act in c("distraction","aggressiveness","arousal")){
   }
   
   xgb_m = xgb.cv(   params               = param,
-                    data = as.matrix(ddat %>% select(-aggressiveness,-distraction,-arousal,-drive,-subject)) ,
+                    data = as.matrix(ddat %>% dplyr::select(-aggressiveness,-distraction,-arousal,-drive,-subject)) ,
                     label =  ddat[,act],
                     nrounds             = cv.nround,
                     verbose             = F,
@@ -96,9 +96,9 @@ compute_results <- function(sdat){
 }
 
                
-results = data.frame(Distraction = compute_results(dat %>% select(distraction_act,distraction)),
-                     Aggressiveness =  compute_results(dat %>% select(aggressiveness_act,aggressiveness)),
-                     Arousal = compute_results(dat %>% select(arousal_act,arousal)))
+results = data.frame(Distraction = compute_results(dat %>% dplyr::select(distraction_act,distraction)),
+                     Aggressiveness =  compute_results(dat %>% dplyr::select(aggressiveness_act,aggressiveness)),
+                     Arousal = compute_results(dat %>% dplyr::select(arousal_act,arousal)))
 
 
 results = rbind(aucs,results)

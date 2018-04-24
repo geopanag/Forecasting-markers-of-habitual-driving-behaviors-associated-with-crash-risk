@@ -52,7 +52,7 @@ linear_feature_selection<-function(dat,lab){
     theme(axis.text.x = element_text(angle=90))
   ggsave(paste0("../Figures/lm_features",lab,".png"))
   
-  return(as.character(data.frame(feature_auc %>% arrange(.,desc(auc)) %>% select(feature))[1:10,]))
+  return(as.character(data.frame(feature_auc %>% arrange(.,desc(auc)) %>% dplyr::select(feature))[1:10,]))
   
 }
 
@@ -73,7 +73,7 @@ xgb_feature_selection <-function(dat,lab) {
   )
   
   xgb_m = xgboost( params               = param,
-                   data = as.matrix(dat %>% select(-label)),
+                   data = as.matrix(dat %>% dplyr::select(-label)),
                    label = dat$label,
                    nrounds             = cv.nround,
                    verbose             = F,
@@ -279,7 +279,7 @@ for(s in unique(subjects)){
  
   sdat = dat[dat$subject==s,]
   
-  normal_perinasal = as.numeric(unlist(sdat %>% filter(drive==1) %>% select(perinasal_mean)))
+  normal_perinasal = as.numeric(unlist(sdat %>% filter(drive==1) %>% dplyr::select(perinasal_mean)))
   
   for(d in unique(sdat$drive)){
     ddat = sdat[sdat$drive==d,]
