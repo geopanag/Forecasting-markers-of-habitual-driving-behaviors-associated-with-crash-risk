@@ -61,7 +61,6 @@ for(v in c("distraction","aggressiveness")){
   colors=c("red", "black","green")
   
   for(d in unique(dat$drive)){
-    d = unique(dat$drive)[4]
     dat %>% filter(drive == d) %>% ggplot(.,aes(x=factor(subject),y=Frame,color=factor(Prediction)))+geom_point()+
       xlab("Subjects")+ylab("Time Windows (10 sec each)")+ggtitle("")+
       scale_color_manual(values=colors)+
