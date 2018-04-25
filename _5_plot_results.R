@@ -33,7 +33,7 @@ write.csv(res,"Results/results_by_session.csv",row.names=F)
 dat %>% group_by(drive) %>% summarise(n_distinct(subject))
 
 #------------------------------ Remove normal and final driver for the paper plots
-dat = dat%>%dplyr::filter(drive!=1, drive!=5)
+dat = dat%>%filter(drive!=1, drive!=5)
 
 dat$drive[dat$drive==2]  = "Cognitive"
 dat$drive[dat$drive==3]  = "Sensorimotor"
@@ -41,8 +41,8 @@ dat$drive[dat$drive==4]  = "Emotional"
 dat$drive[dat$drive==1]  = "Normal"
 dat$drive[dat$drive==5]  = "Final"
 
-names(dat)
-dat = dat %>% dplyr::select(subject,drive,distraction_prediction,distraction,distraction_act,
+
+dat = dat %>% select(subject,drive,distraction_prediction,distraction,distraction_act,
                      aggressiveness_prediction,aggressiveness,aggressiveness_act,
                      arousal_prediction,arousal,arousal_act)%>% 
   group_by(subject,drive) %>% mutate(Frame=1:n())
@@ -61,6 +61,7 @@ for(v in c("distraction","aggressiveness")){
   colors=c("red", "black","green")
   
   for(d in unique(dat$drive)){
+    d = unique(dat$drive)[4]
     dat %>% filter(drive == d) %>% ggplot(.,aes(x=factor(subject),y=Frame,color=factor(Prediction)))+geom_point()+
       xlab("Subjects")+ylab("Time Windows (10 sec each)")+ggtitle("")+
       scale_color_manual(values=colors)+

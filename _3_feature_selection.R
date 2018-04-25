@@ -52,7 +52,7 @@ linear_feature_selection<-function(dat,lab){
     theme(axis.text.x = element_text(angle=90))
   ggsave(paste0("../Figures/lm_features",lab,".png"))
   
-  return(as.character(data.frame(feature_auc %>% arrange(.,desc(auc)) %>% dplyr::select(feature))[1:10,]))
+  return(as.character(data.frame(feature_auc %>% arrange(.,desc(auc)) %>% select(feature))[1:10,]))
   
 }
 
@@ -73,7 +73,7 @@ xgb_feature_selection <-function(dat,lab) {
   )
   
   xgb_m = xgboost( params               = param,
-                   data = as.matrix(dat %>% dplyr::select(-label)),
+                   data = as.matrix(dat %>% select(-label)),
                    label = dat$label,
                    nrounds             = cv.nround,
                    verbose             = F,
@@ -218,16 +218,15 @@ label = "distraction"
 xgb_distraction_names = xgb_feature_selection(temp_dat, label)
 linear_distraction_names = linear_feature_selection(temp_dat,label)
 
-
+dist_f = union(xgb_distraction_names,linear_distraction_names)
+agg_f = union(xgb_aggresiveness_names,linear_aggresiveness_names)
+length(intersect(agg_f,dist_f))/length(agg_f)
 
 temp_dat$label = aggressiveness
 label = "aggressiveness"
 xgb_aggresiveness_names = xgb_feature_selection(temp_dat,label)
 linear_aggresiveness_names = linear_feature_selection(temp_dat,label)
 
-dist_f = union(xgb_distraction_names,linear_distraction_names)
-agg_f = union(xgb_aggresiveness_names,linear_aggresiveness_names)
-length(intersect(agg_f,dist_f))/length(agg_f)
 
 print(xgb_distraction_names)
 print(linear_distraction_names)
@@ -235,6 +234,10 @@ print(xgb_aggresiveness_names)
 print(linear_aggresiveness_names)
 chosen = c("acceleration","steering",union(union(union(xgb_distraction_names,linear_distraction_names),xgb_aggresiveness_names),linear_aggresiveness_names))
 
+
+x1 = union(xgb_distraction_names,linear_distraction_names)
+x2 = union(xgb_aggresiveness_names,linear_aggresiveness_names)
+intersect(x1,x2)
 
 final = c(sum(grepl("perinasal",chosen)),sum(grepl("breath",chosen)),
                  sum(grepl("palm",chosen)),sum(grepl("heart",chosen)),sum(grepl("cov|cor",chosen)))
@@ -279,7 +282,7 @@ for(s in unique(subjects)){
  
   sdat = dat[dat$subject==s,]
   
-  normal_perinasal = as.numeric(unlist(sdat %>% filter(drive==1) %>% dplyr::select(perinasal_mean)))
+  normal_perinasal = as.numeric(unlist(sdat %>% filter(drive==1) %>% select(perinasal_mean)))
   
   for(d in unique(sdat$drive)){
     ddat = sdat[sdat$drive==d,]
