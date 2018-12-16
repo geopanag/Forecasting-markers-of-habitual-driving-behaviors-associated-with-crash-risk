@@ -1,5 +1,5 @@
 
-Code to reproduce the analysis of the paper "Forecasting markers of habitual driving behaviors associated with crash risk – A mixed methods approach"  <br />
+Code to reproduce the analysis of the paper "Forecasting markers of habitual driving behaviors associated with crash risk"  <br />
 
 The folder structure of the project to reproduce the analysis should be like this:  <br />
 
@@ -12,7 +12,7 @@ Figures (will be filled by the scripts)
 
 Run Instructions<br />
 
-Install Libraries used in R: 
+Install R libraries: 
 "signal","dplyr","xlsx","TTR",
 "pastecs","ggplot2","caret","zoo","tibble","lomb"
 "reshape2","glmnet","xgboost","ROCR","pROC"
