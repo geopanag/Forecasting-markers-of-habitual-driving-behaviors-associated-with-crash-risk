@@ -14,11 +14,11 @@ Figures (will be filled by the scripts)
 
 ### Requirements
 R libraries <br>
-signal,dplyr,xlsx,TTR,pastecs,ggplot2,caret,zoo,tibble,lomb,reshape2,glmnet,xgboost,ROCR,pROC
+signal<br>dplyr<br>xlsx<br>TTR<br>pastecs<br>ggplot2<br>caret<br>zoo<br>tibble<br>lomb<br>reshape2<br>glmnet<br>xgboost<br>ROCR<br>pROC
 
 
 ### Run Instructions
 Run Run.R to reproduce the whole analysis. <br>
 Each script can be run individually, following the order of the number in the script's title.  <br>
-If two scripts have the same number, they can be run simultaneously. 
-Data visualization  app can be accessed here https://georgepanagopoulos.shinyapps.io/StressAndAggressivenessOnRoadPrediction/
+If two scripts have the same number, they can be run simultaneously.  <br>
+Data visualization app can be accessed here https://georgepanagopoulos.shinyapps.io/StressAndAggressivenessOnRoadPrediction/
