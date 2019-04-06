@@ -8,8 +8,8 @@ The folder structure of the project to reproduce the analysis should be like thi
 
 Code-> ( Fill it with this code ) <br />
 Data-> Raw ( fill it with the data found under Raw Thermal Data folder in https://osf.io/c42cn/) <br />
-Data-> Dataset-Table-Index.csv
-Data-> Results (will be filled by the scripts)
+Data-> Dataset-Table-Index.csv<br />
+Data-> Results (will be filled by the scripts)<br />
 Figures (will be filled by the scripts)
 
 ### Requirements
