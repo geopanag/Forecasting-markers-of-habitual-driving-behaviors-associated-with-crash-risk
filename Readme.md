@@ -14,7 +14,7 @@ Figures (will be filled by the scripts)
 
 ### Requirements
 R libraries <br>
-signal<br>dplyr<br>xlsx<br>TTR<br>pastecs<br>ggplot2<br>caret<br>zoo<br>tibble<br>lomb<br>reshape2<br>glmnet<br>xgboost<br>ROCR<br>pROC
+signal, dplyr,xlsx,TTR,pastecs,ggplot2,caret,zoo,tibble,lomb,reshape2,glmnet,xgboost,ROCR,pROC
 
 
 ### Run Instructions
