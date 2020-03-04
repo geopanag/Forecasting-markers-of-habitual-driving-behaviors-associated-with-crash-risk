@@ -1,6 +1,6 @@
 # Forecasting markers of habitual driving behaviors associated with crash risk
 
-Code to reproduce the analysis of the paper ["Forecasting markers of habitual driving behaviors associated with crash risk"](https://ieeexplore.ieee.org/document/8695787)  <br />
+Code to reproduce the analysis of the paper ["Forecasting markers of habitual driving behaviors associated with crash risk"](https://ieeexplore.ieee.org/document/8695787).  <br />
 
 The folder structure of the project to reproduce the analysis should be like this:  <br />
 
